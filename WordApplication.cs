@@ -68,6 +68,7 @@ public class ExcelApplication : IOfficeApplication
     private Microsoft.Office.Interop.Excel.Application _application;
     private Workbook? _workbook;
     public bool IsConvertOneSheetOnePDF { get; set; } = true;
+    public bool IsPrintToOneColumn { get; set; } = false;
 
     public ExcelApplication()
     {
@@ -89,6 +90,10 @@ public class ExcelApplication : IOfficeApplication
                 if (_workbook.Sheets.Count == 1)
                 {
                     var worksheet = _workbook.Sheets[1];
+                    if (IsPrintToOneColumn)
+                    {
+                        SetPrintToOneColumn(worksheet);
+                    }
                     worksheet.ExportAsFixedFormat(XlFixedFormatType.xlTypePDF, toFilePath);
                     Marshal.ReleaseComObject(worksheet);
                 }
@@ -97,6 +102,10 @@ public class ExcelApplication : IOfficeApplication
                     for (int i = 1; i <= _workbook.Sheets.Count; i++)
                     {
                         var worksheet = _workbook.Sheets[i];
+                        if (IsPrintToOneColumn)
+                        {
+                            SetPrintToOneColumn(worksheet);
+                        }
                         var directory = Path.GetDirectoryName(toFilePath);
                         if (directory == null) throw new ArgumentException("文件没有目录", nameof(toFilePath));
                         worksheet.ExportAsFixedFormat(XlFixedFormatType.xlTypePDF, Path.Combine(directory, $"{Path.GetFileNameWithoutExtension(toFilePath)}_sheet{i}.pdf"));
@@ -107,8 +116,34 @@ public class ExcelApplication : IOfficeApplication
             else
             {
                 // 所有sheet保存为一个PDF
+                if (IsPrintToOneColumn)
+                {
+                    // 为所有工作表设置一列宽打印
+                    for (int i = 1; i <= _workbook.Sheets.Count; i++)
+                    {
+                        var worksheet = _workbook.Sheets[i];
+                        SetPrintToOneColumn(worksheet);
+                        Marshal.ReleaseComObject(worksheet);
+                    }
+                }
                 _workbook.ExportAsFixedFormat(XlFixedFormatType.xlTypePDF, toFilePath);
             }
+        }
+    }
+
+    private void SetPrintToOneColumn(Worksheet worksheet)
+    {
+        try
+        {
+            // 设置页面设置为适合一页宽
+            worksheet.PageSetup.Zoom = false;
+            worksheet.PageSetup.FitToPagesWide = 1;
+            worksheet.PageSetup.FitToPagesTall = 1; // 0表示自动调整高度
+        }
+        catch (Exception ex)
+        {
+            // 如果设置失败，记录错误但不中断转换
+            System.Diagnostics.Debug.WriteLine($"设置一列宽打印失败: {ex.Message}");
         }
     }
 

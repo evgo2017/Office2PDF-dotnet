@@ -113,7 +113,10 @@
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <CheckBox Content="一个Sheet一个PDF" MinWidth="0" VerticalContentAlignment="Center" Margin="0,0,7,0" IsChecked="{Binding IsConvertOneSheetOnePDFInExcel, UpdateSourceTrigger=PropertyChanged}" />
-                             </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,3,0,0">
+                                <CheckBox Content="打印到一列宽" MinWidth="0" VerticalContentAlignment="Center" Margin="0,0,7,0" IsChecked="{Binding IsPrintToOneColumnInExcel, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
                         </StackPanel>
                     </GroupBox>
                 </UniformGrid>

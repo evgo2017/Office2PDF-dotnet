@@ -179,6 +179,7 @@ namespace Office2PDF
                         else if (application is ExcelApplication excelApp)
                         {
                             excelApp.IsConvertOneSheetOnePDF = ViewModel.IsConvertOneSheetOnePDFInExcel;
+                            excelApp.IsPrintToOneColumn = ViewModel.IsPrintToOneColumnInExcel;
                         }
                         application.OpenDocument(fromFilePath);
                         var toFilePath = GetToFilePath(ViewModel.FromRootFolderPath, ViewModel.ToRootFolderPath, fromFilePath, Path.GetFileName(fromFilePath));
@@ -435,6 +436,20 @@ namespace Office2PDF
                 if (_isConvertOneSheetOnePDFInExcel != value)
                 {
                     _isConvertOneSheetOnePDFInExcel = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool _isPrintToOneColumnInExcel = false;
+        public bool IsPrintToOneColumnInExcel
+        {
+            get => _isPrintToOneColumnInExcel;
+            set
+            {
+                if (_isPrintToOneColumnInExcel != value)
+                {
+                    _isPrintToOneColumnInExcel = value;
                     OnPropertyChanged();
                 }
             }
