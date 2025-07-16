@@ -251,7 +251,7 @@ namespace Office2PDF
             try
             {
                 var assembly = Assembly.GetExecutingAssembly();
-                var resourceName = "Office2PDF.Resources.qrcode_for_gh.png";
+                var resourceName = "Office2PDF.Resources.qrcode.png";
 
                 using (var stream = assembly.GetManifestResourceStream(resourceName))
                 {

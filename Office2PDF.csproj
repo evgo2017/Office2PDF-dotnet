@@ -49,8 +49,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\qrcode_for_gh.png">
-	  <LogicalName>Office2PDF.Resources.qrcode_for_gh.png</LogicalName>
+    <EmbeddedResource Include="Resources\qrcode.png">
+	  <LogicalName>Office2PDF.Resources.qrcode.png</LogicalName>
 	  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	</EmbeddedResource>
   </ItemGroup>
