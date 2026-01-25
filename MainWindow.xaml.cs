@@ -100,6 +100,55 @@ namespace Office2PDF
             }
         }
 
+        private void FolderTextBox_PreviewDragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effects = DragDropEffects.Copy;
+                e.Handled = true;
+            }
+        }
+
+        private void FromFolderTextBox_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                if (files.Length > 0)
+                {
+                    string path = files[0];
+                    if (Directory.Exists(path))
+                    {
+                        ViewModel.FromRootFolderPath = path;
+                    }
+                    else if (File.Exists(path))
+                    {
+                        ViewModel.FromRootFolderPath = Path.GetDirectoryName(path);
+                    }
+                }
+            }
+        }
+
+        private void ToFolderTextBox_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                if (files.Length > 0)
+                {
+                    string path = files[0];
+                    if (Directory.Exists(path))
+                    {
+                        ViewModel.ToRootFolderPath = path;
+                    }
+                    else if (File.Exists(path))
+                    {
+                        ViewModel.ToRootFolderPath = Path.GetDirectoryName(path);
+                    }
+                }
+            }
+        }
+
         private async void StartConvert_Click(object sender, RoutedEventArgs e)
         {
             try

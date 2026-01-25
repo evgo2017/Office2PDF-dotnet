@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Office2PDF"
         mc:Ignorable="d"
-        Title="Office2PDF v3.0" Height="900" Width="635">
+        Title="Office2PDF v3.0.1（2026.01.26）" Height="900" Width="635">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -62,7 +62,7 @@
                                 <ColumnDefinition Width="80"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="来源："/>
-                            <TextBox Grid.Column="1" VerticalAlignment="Center" Padding="2" Text="{Binding FromRootFolderPath, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Column="1" VerticalAlignment="Center" Padding="5" Text="{Binding FromRootFolderPath, UpdateSourceTrigger=PropertyChanged}" AllowDrop="True" PreviewDragOver="FolderTextBox_PreviewDragOver" Drop="FromFolderTextBox_Drop"/>
                             <Button Grid.Column="2" HorizontalAlignment="Stretch" Margin="5,0,0,0" Padding="2" Content="选择" Click="BrowseFromFolder_Click"/>
                             <Button Grid.Column="3" HorizontalAlignment="Stretch" Margin="5,0,0,0" Padding="2" Content="打开" Click="OpenFromFolder_Click"/>
                         </Grid>
@@ -74,7 +74,7 @@
                                 <ColumnDefinition Width="80"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="目标："/>
-                            <TextBox Grid.Column="1" VerticalAlignment="Center" Padding="2" Text="{Binding ToRootFolderPath, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Column="1" VerticalAlignment="Center" Padding="5" Text="{Binding ToRootFolderPath, UpdateSourceTrigger=PropertyChanged}" AllowDrop="True" PreviewDragOver="FolderTextBox_PreviewDragOver" Drop="ToFolderTextBox_Drop"/>
                             <Button Grid.Column="2" HorizontalAlignment="Stretch" Margin="5,0,0,0" Padding="2"  Content="选择" Click="BrowseToFolder_Click"/>
                             <Button Grid.Column="3" HorizontalAlignment="Stretch" Margin="5,0,0,0" Padding="2"  Content="打开" Click="OpenToFolder_Click"/>
                         </Grid>
